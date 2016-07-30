@@ -5,15 +5,18 @@
  */
 
 'use strict';
+
 var address = require('./address');
 var array = require('blear.utils.array');
+var object = require('blear.utils.object');
 var selector = require('blear.core.selector');
 var layout = require('blear.core.layout');
 var attribute = require('blear.core.attribute');
+var UI = require('blear.ui');
 
 var count = 90, //常量
     itemHeight= 36, //li高度
-    selectedClassName = 'window-picker-items-selected',
+    selectedClassName = 'blearui-mobilePicker-items-selected',
     maxNum = 90;
 
 
@@ -27,14 +30,16 @@ var defaults = {
      */
     title: ''
 };
-var CLASSNAME = 'window-picker';
+var CLASSNAME = 'blearui-mobilePicker';
 
 
+// @todo 继承 UI 类
 var Picker =  function(option, arr) {
     var self = this;
     self.touchCurrentEl = '';
-    var opt = Object.assign({}, defaults, option);
+    var opt = object.assign({}, defaults, option);
 
+    // @todo 用遮罩实现
     document.body.addEventListener('touchstart', function(e) {
         var el = e.target;
         var isMatch = selector.closest(el, self.node);
@@ -87,7 +92,7 @@ Picker.prototype = {
 
 
         self.dataSegment(opt);
-        var sureEl = selector.query('.window-picker-header-sure', self.node)[0];
+        var sureEl = selector.query('.blearui-mobilePicker-header-sure', self.node)[0];
         sureEl.onclick = function() {
             self.close();
         };
@@ -103,14 +108,14 @@ Picker.prototype = {
 
         div.className = CLASSNAME;
         var html =
-            '<div class="window-picker-header">' +
-            '<div class="window-picker-header-title">'+ opt.title +'</div>' +
-            '<div class="window-picker-header-sure">确定</div>' +
+            '<div class="blearui-mobilePicker-header">' +
+            '<div class="blearui-mobilePicker-header-title">'+ opt.title +'</div>' +
+            '<div class="blearui-mobilePicker-header-sure">确定</div>' +
             '</div>' +
-            '<div class="window-picker-items">' +
-            '<div class="window-picker-items-col window-picker-province"></div>' +
-            '<div class="window-picker-items-col window-picker-city"></div>' +
-            '<div class="window-picker-items-line"></div>' +
+            '<div class="blearui-mobilePicker-items">' +
+            '<div class="blearui-mobilePicker-items-col blearui-mobilePicker-province"></div>' +
+            '<div class="blearui-mobilePicker-items-col blearui-mobilePicker-city"></div>' +
+            '<div class="blearui-mobilePicker-items-line"></div>' +
             '</div>';
         div.innerHTML = html;
         document.body.appendChild(div);
@@ -133,8 +138,8 @@ Picker.prototype = {
                 self.getAddressStr(self.provinceArr[0][1], self.currentCityArr[0][1]);
             }, 600);
         }else {
-            var provinceElement = selector.query('.window-picker-province', self.node)[0];
-            var cityElement = selector.query('.window-picker-city', self.node)[0];
+            var provinceElement = selector.query('.blearui-mobilePicker-province', self.node)[0];
+            var cityElement = selector.query('.blearui-mobilePicker-city', self.node)[0];
 
             array.each(self.provinceArr, function(i, el) {
                 if(el[1] == self.setValueArr[0]) {
@@ -151,7 +156,7 @@ Picker.prototype = {
                     self.cityIndex = i;
                     self.update(cityElement, self.provinceId);
                     var subEl = selector.query(cityElement)[0];
-                    attribute.addClass(selector.query('.window-picker-items-sub', subEl)[i], selectedClassName);
+                    attribute.addClass(selector.query('.blearui-mobilePicker-items-sub', subEl)[i], selectedClassName);
 
                     self.cityY = count - i * itemHeight;
                 }
@@ -173,8 +178,8 @@ Picker.prototype = {
      */
     render: function() {
         var self = this;
-        self.provinceEl = selector.query('.window-picker-province', self.node)[0];
-        self.cityEl = selector.query('.window-picker-city', self.node)[0];
+        self.provinceEl = selector.query('.blearui-mobilePicker-province', self.node)[0];
+        self.cityEl = selector.query('.blearui-mobilePicker-city', self.node)[0];
 
         self.touchElArr.push(self.provinceEl,self.cityEl);
         self.eachProvince(self.provinceEl);
@@ -218,9 +223,9 @@ Picker.prototype = {
 
         array.each(self.provinceArr, function(i, el) {
             if(i == index){
-                subDiv.innerHTML += '<div class="window-picker-items-sub '+ selectedClassName +'" data-id="'+el[0]+'">'+ el[1] +'</div>'
+                subDiv.innerHTML += '<div class="blearui-mobilePicker-items-sub '+ selectedClassName +'" data-id="'+el[0]+'">'+ el[1] +'</div>'
             }else {
-                subDiv.innerHTML += '<div class="window-picker-items-sub" data-id="'+el[0]+'">'+ el[1] +'</div>'
+                subDiv.innerHTML += '<div class="blearui-mobilePicker-items-sub" data-id="'+el[0]+'">'+ el[1] +'</div>'
             }
         });
         el.innerHTML = '';
@@ -249,9 +254,9 @@ Picker.prototype = {
         //循环当前城市
         array.each(self.currentCityArr, function(i, el) {
             if(i == self.cityIndex) {
-                subDiv.innerHTML += '<div class="window-picker-items-sub '+ selectedClassName +'">'+ el[1] +'</div>';
+                subDiv.innerHTML += '<div class="blearui-mobilePicker-items-sub '+ selectedClassName +'">'+ el[1] +'</div>';
             }else {
-                subDiv.innerHTML += '<div class="window-picker-items-sub">'+ el[1] +'</div>';
+                subDiv.innerHTML += '<div class="blearui-mobilePicker-items-sub">'+ el[1] +'</div>';
             }
         });
 
@@ -271,6 +276,8 @@ Picker.prototype = {
     /**
      * 手指滑动事件
      */
+
+    // @todo 使用 blear.classes.touchable 实现
     handleEvent : function(event) {
         var self = this;
         if(event.type == 'touchstart'){
@@ -288,7 +295,7 @@ Picker.prototype = {
      */
     start: function(event, self) {
         var touch = event.targetTouches[0];
-        self.lineOffsetTop = layout.offsetTop(selector.query('.window-picker-items-line', self.node)[0]);
+        self.lineOffsetTop = layout.offsetTop(selector.query('.blearui-mobilePicker-items-line', self.node)[0]);
 
         self.startPos = {
             x:touch.pageX,
@@ -378,15 +385,15 @@ Picker.prototype = {
      */
     calculate: function(distance, el, actualValue) {
         var self = this;
-        if(el.parentNode.className == 'window-picker-items-wrapper' || el.childNodes[0].className == 'window-picker-items-wrapper' || el.className == 'window-picker-items-wrapper') {
+        if(el.parentNode.className == 'blearui-mobilePicker-items-wrapper' || el.childNodes[0].className == 'blearui-mobilePicker-items-wrapper' || el.className == 'blearui-mobilePicker-items-wrapper') {
             var itemEl;
-            if(el.className == 'window-picker-items-wrapper'){
+            if(el.className == 'blearui-mobilePicker-items-wrapper'){
                 itemEl = el;
             }else {
                 itemEl = self.getTargetEl(el);
             }
 
-            var type = itemEl.parentNode.className.slice(38);
+            var type = itemEl.parentNode.className.slice('blearui-mobilePicker-items-'.length);
 
             if(type == 'province') {
                 self.distanceY = self.provinceY;
@@ -406,9 +413,9 @@ Picker.prototype = {
      */
     getTargetEl: function(el) {
         var itemEl;
-        if(el.parentNode.className == 'window-picker-items-wrapper'){
+        if(el.parentNode.className == 'blearui-mobilePicker-items-wrapper'){
             itemEl = el.parentNode;
-        }else if(el.childNodes[0].className == 'window-picker-items-wrapper') {
+        }else if(el.childNodes[0].className == 'blearui-mobilePicker-items-wrapper') {
             itemEl = el.childNodes[0];
         }
         return itemEl;
@@ -423,11 +430,11 @@ Picker.prototype = {
         setTimeout(function() {
             var subTop = layout.offsetTop(el);
             var differ = Math.round(+(self.lineOffsetTop - subTop) / itemHeight);
-            var childNodesEl = selector.query('.window-picker-items-sub', el);
+            var childNodesEl = selector.query('.blearui-mobilePicker-items-sub', el);
 
             array.each(childNodesEl, function(i, el) {
                 if( i == differ) {
-                    var cityElement = selector.query('.window-picker-city', self.node)[0];
+                    var cityElement = selector.query('.blearui-mobilePicker-city', self.node)[0];
                     var id = attribute.data(childNodesEl[i], 'id');
                     attribute.addClass(childNodesEl[i], selectedClassName);
 

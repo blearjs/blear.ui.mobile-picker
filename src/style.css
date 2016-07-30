@@ -1,9 +1,4 @@
-* {
-  padding: 0;
-  margin: 0;
-  font-size: 14px; }
-
-.window-picker {
+.blearui-mobilePicker {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -11,7 +6,7 @@
   width: 100%;
   background: #eee;
   margin-left: -2000px; }
-  .window-picker-header {
+  .blearui-mobilePicker-header {
     position: relative;
     top: 0;
     left: 0;
@@ -20,18 +15,18 @@
     height: 44px;
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc; }
-    .window-picker-header-title {
+    .blearui-mobilePicker-header-title {
       text-align: center;
       line-height: 44px;
       font-size: 16px; }
-    .window-picker-header-sure {
+    .blearui-mobilePicker-header-sure {
       position: absolute;
       top: 0;
       right: 10px;
       line-height: 44px;
       color: #00bfa5;
       font-size: 16px; }
-  .window-picker-items {
+  .blearui-mobilePicker-items {
     height: 216px;
     position: relative;
     display: flex;
@@ -43,13 +38,13 @@
     text-align: right;
     -webkit-mask-box-image: -webkit-linear-gradient(bottom, transparent, transparent 5%, white 20%, white 80%, transparent 95%, transparent);
     -webkit-mask-box-image: linear-gradient(to top, transparent, transparent 5%, white 20%, white 80%, transparent 95%, transparent); }
-    .window-picker-items-col {
+    .blearui-mobilePicker-items-col {
       text-align: center;
       overflow: hidden;
       position: relative;
       max-height: 100%;
       min-width: 40%; }
-    .window-picker-items-sub {
+    .blearui-mobilePicker-items-sub {
       height: 36px;
       line-height: 36px;
       padding: 0 10px;
@@ -64,13 +59,13 @@
       transition: 300ms;
       -webkit-transition: 300ms;
       font-size: 18px; }
-    .window-picker-items-wrapper {
+    .blearui-mobilePicker-items-wrapper {
       position: relative;
       -webkit-transition: 300ms;
       transition: 300ms;
       -webkit-transition-timing-function: ease-out;
       transition-timing-function: ease-out; }
-    .window-picker-items-line {
+    .blearui-mobilePicker-items-line {
       height: 36px;
       border-bottom: 1px solid #ccc;
       border-top: 1px solid #ccc;
@@ -80,7 +75,7 @@
       margin-top: -18px;
       width: 100%;
       pointer-events: none; }
-    .window-picker-items-selected {
+    .blearui-mobilePicker-items-selected {
       color: #000; }
 
 @-webkit-keyframes bounceInUp {
@@ -98,6 +93,7 @@
   100% {
     -webkit-transform: translateY(0);
     transform: translateY(0); } }
+
 @keyframes bounceInUp {
   0% {
     opacity: 0;
@@ -117,6 +113,7 @@
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0); } }
+
 .bounceInUp {
   -webkit-animation-name: bounceInUp;
   animation-name: bounceInUp; }
@@ -133,6 +130,7 @@
     opacity: 0;
     -webkit-transform: translateY(2000px);
     transform: translateY(2000px); } }
+
 @keyframes bounceOutDown {
   0% {
     -webkit-transform: translateY(0);
@@ -148,6 +146,7 @@
     -webkit-transform: translateY(2000px);
     -ms-transform: translateY(2000px);
     transform: translateY(2000px); } }
+
 .bounceOutDown {
   -webkit-animation-name: bounceOutDown;
   animation-name: bounceOutDown; }
@@ -157,5 +156,3 @@
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both; }
-
-/*# sourceMappingURL=style.css.map */
