@@ -1,9 +1,12 @@
 <div class="blearui-mobilePicker-header">
     <div class="blearui-mobilePicker-header-title">{{title}}</div>
-    <div class="blearui-mobilePicker-header-sure">确定</div>
+    <div class="blearui-mobilePicker-header-sure" @click="onSure">确定</div>
 </div>
 <div class="blearui-mobilePicker-items">
-    <div class="blearui-mobilePicker-items-col blearui-mobilePicker-province"></div>
-    <div class="blearui-mobilePicker-items-col blearui-mobilePicker-city"></div>
+    <div @for="index, col in length" class="blearui-mobilePicker-items-col">
+        <div class="blearui-mobilePicker-items-wrapper" style="transform: translate3d(0px, 90px, 0px);transition-duration: 0ms;">
+            <!--<div @for="item in linkage[index]" class="blearui-mobilePicker-items-sub" data-id="{{item.value}}">{{item.text}}</div>-->
+        </div>
+    </div>
     <div class="blearui-mobilePicker-items-line"></div>
 </div>
