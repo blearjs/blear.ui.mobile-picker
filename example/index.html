@@ -19,23 +19,20 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <title>index.html</title>
     <style>
-        input{
-            width: 200px;
-            height: 35px;
-            display: block;
-            margin: 130px auto;
+        button {
+            font-size: 18px;
+            border: 2px solid #000;
+            padding: 10px 20px;
         }
     </style>
 </head>
 <body ontouchstart="">
 
-
-<input type='text' id="picker" class="picker" readonly value="浙江 丽水">
-<input type='text' id="picker2" class="picker" readonly>
+<button id="open">打开数据联动</button>
 
 <script src="/node_modules/coolie.js/coolie.js"
-data-config="/example/coolie-config.js"
-data-main="index.js"></script>
+        data-config="/example/coolie-config.js"
+        data-main="index.js"></script>
 
 </body>
 </html>
